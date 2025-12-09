@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxDrive - Wypożyczalnia Samochodów Premium</title>
+    <meta name="description" content="Wypożycz samochód swoich marzeń. Premium wypożyczalnia samochodów z szerokim wyborem luksusowych pojazdów.">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fas fa-car-side"></i>
+                    <span>LuxDrive</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#cars" class="nav-link">Samochody</a></li>
+                    <li><a href="#about" class="nav-link">O Nas</a></li>
+                    <li><a href="#contact" class="nav-link">Kontakt</a></li>
+                </ul>
+                <button class="btn btn-primary">Zarezerwuj</button>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text animate-fade-in">
+                    <span class="hero-badge">
+                        <i class="fas fa-star"></i>
+                        Premium Car Rental
+                    </span>
+                    <h1 class="hero-title">
+                        Wypożycz Samochód<br>
+                        <span class="gradient-text">Swoich Marzeń</span>
+                    </h1>
+                    <p class="hero-description">
+                        Odkryj naszą ekskluzywną kolekcję luksusowych samochodów. 
+                        Od sportowych aut po eleganckie SUV-y - znajdź idealny pojazd na każdą okazję.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Samochodów</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50k+</div>
+                            <div class="stat-label">Klientów</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.9</div>
+                            <div class="stat-label">Ocena</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Search Box -->
+                <div class="search-box card-glass animate-slide-in-right">
+                    <h3 class="search-title">Znajdź Swój Samochód</h3>
+                    <form class="search-form" id="searchForm">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label class="input-label">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Lokalizacja
+                                </label>
+                                <input type="text" class="input" placeholder="Warszawa, Kraków..." value="Warszawa">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">
+                                    <i class="fas fa-calendar"></i>
+                                    Data odbioru
+                                </label>
+                                <input type="date" class="input" id="pickupDate">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label class="input-label">
+                                    <i class="fas fa-calendar"></i>
+                                    Data zwrotu
+                                </label>
+                                <input type="date" class="input" id="returnDate">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label">
+                                    <i class="fas fa-car"></i>
+                                    Typ pojazdu
+                                </label>
+                                <select class="input" id="carType">
+                                    <option value="">Wszystkie</option>
+                                    <option value="luxury">Luksusowe</option>
+                                    <option value="suv">SUV</option>
+                                    <option value="sport">Sportowe</option>
+                                    <option value="electric">Elektryczne</option>
+                                    <option value="economy">Ekonomiczne</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg search-btn">
+                            <i class="fas fa-search"></i>
+                            Szukaj Samochodów
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Cars Section -->
+    <section id="cars" class="section cars-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Nasza Flota</span>
+                <h2 class="section-title">Polecane Samochody</h2>
+                <p class="section-description">
+                    Wybierz spośród naszej starannie wyselekcjonowanej kolekcji premium pojazdów
+                </p>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i>
+                    Wszystkie
+                </button>
+                <button class="filter-btn" data-filter="luxury">
+                    <i class="fas fa-gem"></i>
+                    Luksusowe
+                </button>
+                <button class="filter-btn" data-filter="suv">
+                    <i class="fas fa-truck"></i>
+                    SUV
+                </button>
+                <button class="filter-btn" data-filter="sport">
+                    <i class="fas fa-flag-checkered"></i>
+                    Sportowe
+                </button>
+                <button class="filter-btn" data-filter="electric">
+                    <i class="fas fa-bolt"></i>
+                    Elektryczne
+                </button>
+                <button class="filter-btn" data-filter="economy">
+                    <i class="fas fa-coins"></i>
+                    Ekonomiczne
+                </button>
+            </div>
+
+            <!-- Cars Grid -->
+            <div class="cars-grid" id="carsGrid">
+                <!-- Cars will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Dlaczego My</span>
+                <h2 class="section-title">Twoje Korzyści</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Pełne Ubezpieczenie</h3>
+                    <p class="feature-description">
+                        Wszystkie pojazdy objęte kompleksowym ubezpieczeniem AC i OC
+                    </p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">24/7 Wsparcie</h3>
+                    <p class="feature-description">
+                        Nasz zespół jest dostępny dla Ciebie przez całą dobę
+                    </p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3 class="feature-title">Najlepsze Ceny</h3>
+                    <p class="feature-description">
+                        Konkurencyjne stawki i przejrzyste warunki wynajmu
+                    </p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">Szybka Rezerwacja</h3>
+                    <p class="feature-description">
+                        Zarezerwuj samochód w mniej niż 5 minut online
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-car-side"></i>
+                        <span>LuxDrive</span>
+                    </div>
+                    <p class="footer-text">
+                        Premium wypożyczalnia samochodów oferująca najlepsze pojazdy w najlepszych cenach.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Szybkie Linki</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#cars">Samochody</a></li>
+                        <li><a href="#about">O Nas</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Kategorie</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Luksusowe</a></li>
+                        <li><a href="#">SUV</a></li>
+                        <li><a href="#">Sportowe</a></li>
+                        <li><a href="#">Elektryczne</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Kontakt</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            +48 123 456 789
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            kontakt@luxdrive.pl
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            ul. Przykładowa 123, Warszawa
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 LuxDrive. Wszystkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Rezerwacja Samochodu</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="booking-car-info" id="bookingCarInfo">
+                    <!-- Car info will be inserted here -->
+                </div>
+                <form class="booking-form" id="bookingForm">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label class="input-label">Imię i Nazwisko</label>
+                            <input type="text" class="input" placeholder="Jan Kowalski" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Email</label>
+                            <input type="email" class="input" placeholder="jan@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label class="input-label">Telefon</label>
+                            <input type="tel" class="input" placeholder="+48 123 456 789" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Numer Prawa Jazdy</label>
+                            <input type="text" class="input" placeholder="ABC123456" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label class="input-label">Data Odbioru</label>
+                            <input type="date" class="input" id="bookingPickupDate" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Data Zwrotu</label>
+                            <input type="date" class="input" id="bookingReturnDate" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Dodatkowe Uwagi</label>
+                        <textarea class="input" rows="3" placeholder="Opcjonalne informacje..."></textarea>
+                    </div>
+                    <div class="booking-summary">
+                        <div class="summary-row">
+                            <span>Liczba dni:</span>
+                            <span id="rentalDays">-</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Cena za dzień:</span>
+                            <span id="pricePerDay">-</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Suma:</span>
+                            <span id="totalPrice">-</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-check"></i>
+                        Potwierdź Rezerwację
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
