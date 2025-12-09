@@ -1,209 +1,190 @@
-# 🛍️ Full-Stack Product Manager
+# 🚗 LuxDrive - Premium Car Rental
 
-Full-stack aplikacja do zarządzania produktami zbudowana z **.NET 9**, **React**, i **PostgreSQL**.
+Nowoczesna aplikacja do wypożyczania samochodów z pięknym interfejsem użytkownika.
 
-## 🚀 Technologie
+## ✨ Funkcje
 
-### Backend
-- **.NET 9 Web API** - RESTful API
-- **Entity Framework Core** - ORM
-- **PostgreSQL** - Baza danych
-- **Npgsql** - PostgreSQL provider
+- 🎨 Nowoczesny design z dark theme i glassmorphism
+- 🚙 12 różnych kategorii samochodów (luksusowe, SUV, sportowe, elektryczne, ekonomiczne)
+- 🔍 Zaawansowane filtry i wyszukiwarka
+- 📅 System rezerwacji z kalkulacją ceny
+- 💫 Płynne animacje i efekty hover
+- 📱 Responsywny design (desktop, tablet, mobile)
 
-### Frontend
-- **React 18** - UI library
-- **Vite** - Build tool
-- **Axios** - HTTP client
-- **Modern CSS** - Premium styling z animacjami
+## 🛠️ Technologie
 
-### DevOps
-- **Docker Compose** - PostgreSQL containerization
+- **HTML5** - struktura strony
+- **CSS3** - stylowanie (CSS Variables, Flexbox, Grid, Animations)
+- **JavaScript (ES6+)** - logika aplikacji
+- **Font Awesome** - ikony
+- **Google Fonts** - typografia (Outfit)
 
 ## 📁 Struktura Projektu
 
 ```
-dotnet-react-postgres/
-├── backend/                    # .NET Web API
-│   ├── Controllers/           # API controllers
-│   ├── Models/               # Entity models
-│   ├── Data/                 # DbContext
-│   ├── Program.cs            # App configuration
-│   └── appsettings.json      # Configuration
-├── frontend/                  # React App
-│   ├── src/
-│   │   ├── components/       # React components
-│   │   ├── services/         # API services
-│   │   ├── App.jsx          # Main component
-│   │   └── main.jsx         # Entry point
-│   └── package.json
-└── docker-compose.yml        # PostgreSQL setup
+car-rental/
+├── index.html          # Główna strona HTML
+├── index.css           # Style aplikacji
+├── app.js              # Logika JavaScript
+├── assets/             # Zasoby (obrazy)
+└── README.md           # Dokumentacja
 ```
 
-## 🔧 Instalacja i Uruchomienie
+## 🚀 Jak Uruchomić
 
-### Wymagania
-- [.NET 9 SDK](https://dotnet.microsoft.com/download)
-- [Node.js 18+](https://nodejs.org/)
-- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+### Opcja 1: Bezpośrednio w przeglądarce
+Po prostu otwórz plik `index.html` w przeglądarce.
 
-### 1️⃣ Uruchom PostgreSQL
-
+### Opcja 2: Lokalny serwer (zalecane)
 ```bash
-docker-compose up -d
+# Python 3
+python -m http.server 8000
+
+# Node.js (npx)
+npx serve
+
+# VS Code - Live Server extension
+# Kliknij prawym na index.html -> "Open with Live Server"
 ```
 
-### 2️⃣ Skonfiguruj Backend
+Następnie otwórz: `http://localhost:8000`
 
-```bash
-cd backend
+## 📋 Główne Pliki
 
-# Zainstaluj narzędzie EF Core (jeśli nie masz)
-dotnet tool install --global dotnet-ef
+### `index.html`
+Zawiera:
+- Nawigację (navbar)
+- Sekcję hero z wyszukiwarką
+- Filtry kategorii
+- Siatkę z kartami samochodów
+- Sekcję z funkcjami
+- Stopkę
+- Modal rezerwacji
 
-# Utwórz migrację
-dotnet ef migrations add InitialCreate
+### `index.css`
+Zawiera:
+- CSS Variables (kolory, spacing, shadows)
+- Reset i base styles
+- Komponenty (buttons, cards, inputs, badges)
+- Layout (navbar, hero, grid)
+- Animacje (fade-in, slide-up, pulse)
+- Media queries (responsywność)
 
-# Zastosuj migrację do bazy danych
-dotnet ef database update
+### `app.js`
+Zawiera:
+- Dane samochodów (12 pojazdów)
+- Funkcje renderowania
+- System filtrowania
+- Obsługę rezerwacji
+- Walidację formularzy
+- Smooth scrolling
+- Intersection Observer dla animacji
 
-# Uruchom API
-dotnet run
+## 🎨 Funkcjonalności
+
+### Filtry
+- Wszystkie
+- Luksusowe
+- SUV
+- Sportowe
+- Elektryczne
+- Ekonomiczne
+
+### Wyszukiwarka
+- Wybór typu samochodu
+- Data odbioru
+- Data zwrotu
+- Lokalizacja
+
+### Rezerwacja
+- Wybór samochodu
+- Formularz danych osobowych
+- Automatyczna kalkulacja ceny
+- Podsumowanie rezerwacji
+
+## 🎯 Samochody w Ofercie
+
+1. **Mercedes S-Class** - 899 zł/dzień
+2. **BMW X7** - 799 zł/dzień
+3. **Porsche 911** - 1299 zł/dzień
+4. **Tesla Model S** - 699 zł/dzień
+5. **Audi A6** - 649 zł/dzień
+6. **Range Rover Sport** - 949 zł/dzień
+7. **Ferrari F8** - 2499 zł/dzień
+8. **Tesla Model 3** - 449 zł/dzień
+9. **Toyota Corolla** - 199 zł/dzień
+10. **Volkswagen Golf** - 249 zł/dzień
+11. **Lamborghini Huracán** - 2999 zł/dzień
+12. **Audi e-tron** - 599 zł/dzień
+
+## 🌟 Najważniejsze Funkcje Kodu
+
+### Filtrowanie
+```javascript
+const filteredCars = currentFilter === 'all'
+    ? cars
+    : cars.filter(car => car.type === currentFilter);
 ```
 
-Backend będzie dostępny na: **http://localhost:5000**
-
-### 3️⃣ Uruchom Frontend
-
-```bash
-cd frontend
-
-# Zainstaluj zależności (jeśli nie zainstalowane)
-npm install
-
-# Uruchom dev server
-npm run dev
+### Kalkulacja Ceny
+```javascript
+const days = Math.ceil((returnDate - pickupDate) / (1000 * 60 * 60 * 24));
+const total = days * selectedCar.price;
 ```
 
-Frontend będzie dostępny na: **http://localhost:5173**
-
-## 🎯 Funkcjonalności
-
-- ✅ **CRUD Operations** - Tworzenie, odczyt, aktualizacja, usuwanie produktów
-- ✅ **RESTful API** - Pełne API z .NET
-- ✅ **PostgreSQL Database** - Trwałe przechowywanie danych
-- ✅ **Responsive Design** - Działa na wszystkich urządzeniach
-- ✅ **Premium UI** - Nowoczesny design z animacjami
-- ✅ **Error Handling** - Obsługa błędów po stronie klienta i serwera
-
-## 📡 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/products` | Pobierz wszystkie produkty |
-| GET | `/api/products/{id}` | Pobierz produkt po ID |
-| POST | `/api/products` | Utwórz nowy produkt |
-| PUT | `/api/products/{id}` | Zaktualizuj produkt |
-| DELETE | `/api/products/{id}` | Usuń produkt |
-
-## 🗄️ Model Danych
-
-```csharp
-public class Product
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string? Description { get; set; }
-    public decimal Price { get; set; }
-    public int Stock { get; set; }
-    public DateTime CreatedAt { get; set; }
-}
+### Animacje przy Scrollu
+```javascript
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in');
+        }
+    });
+});
 ```
 
-## 🔐 Konfiguracja Bazy Danych
+## 🎨 Design System
 
-Domyślne ustawienia PostgreSQL (w `docker-compose.yml`):
-- **Host**: localhost
-- **Port**: 5432
-- **Database**: productdb
-- **Username**: postgres
-- **Password**: postgres123
+### Kolory
+- Primary: `#6366f1` (Indigo)
+- Secondary: `#8b5cf6` (Purple)
+- Accent: `#ec4899` (Pink)
+- Success: `#10b981` (Green)
+- Warning: `#f59e0b` (Amber)
+- Danger: `#ef4444` (Red)
 
-Możesz zmienić te ustawienia w `appsettings.json` (backend) i `docker-compose.yml`.
+### Efekty
+- Glassmorphism
+- Gradient overlays
+- Box shadows
+- Smooth transitions
+- Hover effects
 
-## 🛠️ Przydatne Komendy
+## 📱 Responsywność
 
-### Backend
-```bash
-# Build projektu
-dotnet build
+- **Desktop**: 1200px+
+- **Tablet**: 768px - 1199px
+- **Mobile**: < 768px
 
-# Uruchom testy (jeśli są)
-dotnet test
+## 🔮 Przyszłe Ulepszenia
 
-# Utwórz nową migrację
-dotnet ef migrations add MigrationName
-
-# Cofnij migrację
-dotnet ef database update PreviousMigrationName
-```
-
-### Frontend
-```bash
-# Build produkcyjny
-npm run build
-
-# Preview buildu
-npm run preview
-```
-
-### Docker
-```bash
-# Zatrzymaj PostgreSQL
-docker-compose down
-
-# Zatrzymaj i usuń volumes
-docker-compose down -v
-
-# Zobacz logi
-docker-compose logs -f
-```
-
-## 🎨 Screenshoty
-
-Aplikacja posiada:
-- 🎨 Gradient background
-- ✨ Glassmorphism effects
-- 🎭 Smooth animations
-- 📱 Responsive grid layout
-- 🎯 Interactive hover effects
-
-## 📝 Notatki
-
-- Backend używa CORS aby umożliwić połączenia z frontendu
-- Dane seed są automatycznie dodawane przy pierwszej migracji
-- Frontend używa Axios do komunikacji z API
-- Wszystkie style są napisane w czystym CSS (bez frameworków)
-
-## 🚀 Deployment
-
-### Backend
-Możesz wdrożyć backend na:
-- Azure App Service
-- AWS Elastic Beanstalk
-- Heroku
-- Docker container
-
-### Frontend
-Możesz wdrożyć frontend na:
-- Vercel
-- Netlify
-- GitHub Pages
-- Azure Static Web Apps
+- [ ] Backend API dla zarządzania rezerwacjami
+- [ ] Baza danych dla samochodów i użytkowników
+- [ ] System płatności online
+- [ ] Panel administracyjny
+- [ ] Autentykacja użytkowników
+- [ ] Historia rezerwacji
+- [ ] Oceny i recenzje
+- [ ] Mapa z lokalizacjami odbioru
 
 ## 📄 Licencja
 
-Ten projekt jest open source i dostępny dla wszystkich.
+MIT License - możesz swobodnie używać i modyfikować ten projekt.
+
+## 👨‍💻 Autor
+
+Projekt stworzony jako demo nowoczesnej aplikacji car rental.
 
 ---
 
-**Enjoy coding! 🎉**
+**Enjoy your ride! 🚗💨**
