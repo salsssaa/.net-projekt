@@ -1,4 +1,3 @@
-// Car Data
 const carsData = [
     {
         id: 1,
@@ -170,11 +169,9 @@ const carsData = [
     }
 ];
 
-// State
 let currentFilter = 'all';
 let selectedCar = null;
 
-// DOM Elements
 const carsGrid = document.getElementById('carsGrid');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const bookingModal = document.getElementById('bookingModal');
@@ -183,14 +180,12 @@ const bookingForm = document.getElementById('bookingForm');
 const searchForm = document.getElementById('searchForm');
 const navbar = document.querySelector('.navbar');
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     renderCars(carsData);
     setupEventListeners();
     setDefaultDates();
 });
 
-// Set default dates
 function setDefaultDates() {
     const today = new Date();
     const tomorrow = new Date(today);
@@ -206,7 +201,7 @@ function setDefaultDates() {
     document.getElementById('bookingReturnDate').value = formatDate(weekLater);
 }
 
-// Render cars
+
 function renderCars(cars) {
     carsGrid.innerHTML = '';
 
@@ -220,7 +215,7 @@ function renderCars(cars) {
     });
 }
 
-// Create car card
+
 function createCarCard(car, index) {
     const card = document.createElement('div');
     card.className = 'car-card';
@@ -272,9 +267,7 @@ function createCarCard(car, index) {
     return card;
 }
 
-// Setup event listeners
 function setupEventListeners() {
-    // Filter buttons
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('active'));
@@ -284,17 +277,17 @@ function setupEventListeners() {
         });
     });
 
-    // Close modal
+
     closeModalBtn.addEventListener('click', closeBookingModal);
     bookingModal.querySelector('.modal-backdrop').addEventListener('click', closeBookingModal);
 
-    // Booking form
+
     bookingForm.addEventListener('submit', handleBookingSubmit);
 
-    // Search form
+
     searchForm.addEventListener('submit', handleSearch);
 
-    // Navbar scroll effect
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 100) {
             navbar.classList.add('scrolled');
@@ -303,7 +296,7 @@ function setupEventListeners() {
         }
     });
 
-    // Smooth scroll for nav links
+
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -312,14 +305,14 @@ function setupEventListeners() {
             if (targetSection) {
                 targetSection.scrollIntoView({ behavior: 'smooth' });
 
-                // Update active link
+
                 document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
             }
         });
     });
 
-    // Date change listeners for booking summary
+
     const bookingPickupDate = document.getElementById('bookingPickupDate');
     const bookingReturnDate = document.getElementById('bookingReturnDate');
 
@@ -327,7 +320,7 @@ function setupEventListeners() {
     bookingReturnDate.addEventListener('change', updateBookingSummary);
 }
 
-// Open booking modal
+
 function openBookingModal(carId) {
     selectedCar = carsData.find(car => car.id === carId);
     if (!selectedCar) return;
@@ -347,14 +340,14 @@ function openBookingModal(carId) {
     document.body.style.overflow = 'hidden';
 }
 
-// Close booking modal
+
 function closeBookingModal() {
     bookingModal.classList.remove('active');
     document.body.style.overflow = '';
     selectedCar = null;
 }
 
-// Update booking summary
+
 function updateBookingSummary() {
     if (!selectedCar) return;
 
@@ -375,33 +368,33 @@ function updateBookingSummary() {
     }
 }
 
-// Handle booking submit
+
 function handleBookingSubmit(e) {
     e.preventDefault();
 
-    // Get form data
+
     const formData = new FormData(bookingForm);
 
-    // Show success message
+
     alert(`✅ Rezerwacja potwierdzona!\n\nSamochód: ${selectedCar.name}\nDziękujemy za wybór LuxDrive!`);
 
-    // Close modal and reset form
+
     closeBookingModal();
     bookingForm.reset();
     setDefaultDates();
 }
 
-// Handle search
+
 function handleSearch(e) {
     e.preventDefault();
 
     const carType = document.getElementById('carType').value;
 
     if (carType) {
-        // Update filter
+
         currentFilter = carType;
 
-        // Update active filter button
+
         filterBtns.forEach(btn => {
             if (btn.dataset.filter === carType) {
                 btn.classList.add('active');
@@ -410,13 +403,13 @@ function handleSearch(e) {
             }
         });
 
-        // Render filtered cars
+
         renderCars(carsData);
 
-        // Scroll to cars section
+
         document.getElementById('cars').scrollIntoView({ behavior: 'smooth' });
     } else {
-        // Show all cars
+
         currentFilter = 'all';
         filterBtns.forEach(btn => {
             if (btn.dataset.filter === 'all') {
@@ -430,7 +423,7 @@ function handleSearch(e) {
     }
 }
 
-// Intersection Observer for animations
+
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -444,7 +437,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe elements
+
 document.addEventListener('DOMContentLoaded', () => {
     const elementsToAnimate = document.querySelectorAll('.feature-card, .section-header');
     elementsToAnimate.forEach(el => observer.observe(el));

@@ -15,7 +15,6 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Seed some initial data
         modelBuilder.Entity<Product>().HasData(
             new Product 
             { 

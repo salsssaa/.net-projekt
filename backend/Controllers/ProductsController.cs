@@ -18,14 +18,12 @@ public class ProductsController : ControllerBase
         _logger = logger;
     }
 
-    // GET: api/products
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
     {
         return await _context.Products.ToListAsync();
     }
 
-    // GET: api/products/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
@@ -39,7 +37,6 @@ public class ProductsController : ControllerBase
         return product;
     }
 
-    // POST: api/products
     [HttpPost]
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
@@ -49,7 +46,6 @@ public class ProductsController : ControllerBase
         return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
     }
 
-    // PUT: api/products/5
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateProduct(int id, Product product)
     {
@@ -79,7 +75,6 @@ public class ProductsController : ControllerBase
         return NoContent();
     }
 
-    // DELETE: api/products/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProduct(int id)
     {
