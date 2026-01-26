@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "470zGUUaR02Y06G6UIj+e0cJ4/NN+cd08WCEApejBlA=",
+  "Source": "CarRentApi",
+  "BasePath": "_content/CarRentApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

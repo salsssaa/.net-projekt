@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:3001/api';
+
 const carsData = [
     {
         id: 1,
@@ -171,6 +173,7 @@ const carsData = [
 
 let currentFilter = 'all';
 let selectedCar = null;
+let suggestedCar = null;
 
 const carsGrid = document.getElementById('carsGrid');
 const filterBtns = document.querySelectorAll('.filter-btn');
@@ -179,6 +182,16 @@ const closeModalBtn = document.getElementById('closeModal');
 const bookingForm = document.getElementById('bookingForm');
 const searchForm = document.getElementById('searchForm');
 const navbar = document.querySelector('.navbar');
+
+const suggestionModal = document.getElementById('suggestionModal');
+const closeSuggestionModalBtn = document.getElementById('closeSuggestionModal');
+const bookSuggestedCarBtn = document.getElementById('bookSuggestedCar');
+const chooseDifferentDateBtn = document.getElementById('chooseDifferentDate');
+const chooseDifferentDateBtn2 = document.getElementById('chooseDifferentDate2');
+
+const successModal = document.getElementById('successModal');
+const closeSuccessModalBtn = document.getElementById('closeSuccessModal');
+const closeSuccessBtnBottom = document.getElementById('closeSuccessBtn');
 
 document.addEventListener('DOMContentLoaded', () => {
     renderCars(carsData);
@@ -318,6 +331,36 @@ function setupEventListeners() {
 
     bookingPickupDate.addEventListener('change', updateBookingSummary);
     bookingReturnDate.addEventListener('change', updateBookingSummary);
+
+    closeSuggestionModalBtn.addEventListener('click', closeSuggestionModal);
+    suggestionModal.querySelector('.modal-backdrop').addEventListener('click', closeSuggestionModal);
+
+    bookSuggestedCarBtn.addEventListener('click', () => {
+        if (suggestedCar) {
+            closeSuggestionModal();
+            openBookingModal(suggestedCar.id);
+        }
+    });
+
+    chooseDifferentDateBtn.addEventListener('click', () => {
+        closeSuggestionModal();
+        if (selectedCar) {
+            openBookingModal(selectedCar.id);
+        }
+    });
+
+    if (chooseDifferentDateBtn2) {
+        chooseDifferentDateBtn2.addEventListener('click', () => {
+            closeSuggestionModal();
+            if (selectedCar) {
+                openBookingModal(selectedCar.id);
+            }
+        });
+    }
+
+    closeSuccessModalBtn.addEventListener('click', closeSuccessModal);
+    closeSuccessBtnBottom.addEventListener('click', closeSuccessModal);
+    successModal.querySelector('.modal-backdrop').addEventListener('click', closeSuccessModal);
 }
 
 
@@ -344,7 +387,72 @@ function openBookingModal(carId) {
 function closeBookingModal() {
     bookingModal.classList.remove('active');
     document.body.style.overflow = '';
-    selectedCar = null;
+}
+
+function closeSuggestionModal() {
+    suggestionModal.classList.remove('active');
+    document.body.style.overflow = '';
+    suggestedCar = null;
+}
+
+function showSuggestionModal(originalCar, suggestion) {
+    const unavailableMsg = document.getElementById('unavailableCarName');
+    unavailableMsg.textContent = `${originalCar.name} jest już zarezerwowany w wybranym terminie.`;
+
+    const suggestionBox = document.getElementById('suggestionBox');
+    const noSuggestionBox = document.getElementById('noSuggestionBox');
+
+    if (suggestion && suggestion.found) {
+        suggestedCar = suggestion.suggestion;
+
+        const suggestedCarInfo = document.getElementById('suggestedCarInfo');
+        suggestedCarInfo.innerHTML = `
+            <img src="${suggestedCar.image}" alt="${suggestedCar.name}" class="suggested-car-image">
+            <div class="suggested-car-details">
+                <h4>${suggestedCar.name}</h4>
+                <p class="text-secondary">${suggestedCar.category}</p>
+                <p class="text-primary font-bold">${suggestedCar.price} zł / dzień</p>
+                <div class="suggested-car-rating">
+                    <i class="fas fa-star" style="color: #f59e0b;"></i>
+                    <span>${suggestedCar.rating}</span>
+                </div>
+            </div>
+        `;
+
+        const suggestionReason = document.getElementById('suggestionReason');
+        suggestionReason.innerHTML = `<i class="fas fa-info-circle"></i> ${suggestedCar.reason}`;
+
+        suggestionBox.style.display = 'block';
+        noSuggestionBox.style.display = 'none';
+    } else {
+        suggestionBox.style.display = 'none';
+        noSuggestionBox.style.display = 'block';
+    }
+
+    suggestionModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSuccessModal() {
+    successModal.classList.remove('active');
+    document.body.style.overflow = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showSuccessModal(reservationData, carName, pickupDate, returnDate, totalPrice) {
+    const formatDate = (dateStr) => {
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('pl-PL');
+    };
+
+    document.getElementById('successCarName').textContent = carName;
+    document.getElementById('reservationId').textContent = `#${reservationData.reservationId}`;
+    document.getElementById('successPickupDate').textContent = formatDate(pickupDate);
+    document.getElementById('successReturnDate').textContent = formatDate(returnDate);
+    document.getElementById('successTotalPrice').textContent = `${totalPrice.toFixed(2)} zł`;
+
+    successModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
 
@@ -369,17 +477,86 @@ function updateBookingSummary() {
 }
 
 
-function handleBookingSubmit(e) {
+async function handleBookingSubmit(e) {
     e.preventDefault();
 
+    const pickupDate = document.getElementById('bookingPickupDate').value;
+    const returnDate = document.getElementById('bookingReturnDate').value;
 
-    const formData = new FormData(bookingForm);
+    console.log('=== REZERWACJA ===');
+    console.log('Samochod:', selectedCar.name, '(ID:', selectedCar.id, ')');
+    console.log('Data odbioru:', pickupDate);
+    console.log('Data zwrotu:', returnDate);
 
+    try {
+        console.log('Wywoluje API check-availability...');
+        const availabilityResponse = await fetch(`${API_URL}/check-availability`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                carId: selectedCar.id,
+                pickupDate: pickupDate,
+                returnDate: returnDate
+            })
+        });
 
-    alert(`✅ Rezerwacja potwierdzona!\n\nSamochód: ${selectedCar.name}\nDziękujemy za wybór LuxDrive!`);
+        const availabilityData = await availabilityResponse.json();
+        console.log('Odpowiedz dostepnosci:', availabilityData);
 
+        if (!availabilityData.available) {
+            console.log('Samochod NIEDOSTEPNY - pobieram sugestie...');
+            closeBookingModal();
 
-    closeBookingModal();
+            const suggestionResponse = await fetch(`${API_URL}/suggest-similar`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    carId: selectedCar.id,
+                    pickupDate: pickupDate,
+                    returnDate: returnDate
+                })
+            });
+
+            const suggestionData = await suggestionResponse.json();
+            console.log('Sugestia:', suggestionData);
+            showSuggestionModal(selectedCar, suggestionData);
+            return;
+        }
+
+        console.log('Samochod DOSTEPNY - tworze rezerwacje...');
+        const formData = new FormData(bookingForm);
+        const days = Math.ceil((new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24));
+        const totalPrice = days * selectedCar.price;
+
+        const reservationResponse = await fetch(`${API_URL}/reservations`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                carId: selectedCar.id,
+                customerName: formData.get('name') || 'Klient',
+                customerEmail: formData.get('email') || 'klient@example.com',
+                customerPhone: formData.get('phone') || '',
+                pickupDate: pickupDate,
+                returnDate: returnDate,
+                totalPrice: totalPrice
+            })
+        });
+
+        const reservationData = await reservationResponse.json();
+
+        if (reservationData.success) {
+            console.log('Rezerwacja utworzona:', reservationData);
+            closeBookingModal();
+            showSuccessModal(reservationData, selectedCar.name, pickupDate, returnDate, totalPrice);
+        } else {
+            alert(`Błąd: ${reservationData.error}`);
+        }
+
+    } catch (error) {
+        console.error('Blad API:', error);
+        alert(`Nie można połączyć się z serwerem.`);
+    }
+
     bookingForm.reset();
     setDefaultDates();
 }

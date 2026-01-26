@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "7G1+C4bGURI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\iamfo\\.vscode\\programy\\carrent\\server\\CarRentApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\iamfo\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.4\\microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
+    "C:\\Users\\iamfo\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.0\\microsoft.extensions.dependencyinjection.abstractions.9.0.0.nupkg.sha512",
+    "C:\\Users\\iamfo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\9.0.0\\microsoft.extensions.logging.abstractions.9.0.0.nupkg.sha512",
+    "C:\\Users\\iamfo\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512",
+    "C:\\Users\\iamfo\\.nuget\\packages\\npgsql\\10.0.1\\npgsql.10.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

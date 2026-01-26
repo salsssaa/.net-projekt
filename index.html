@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LuxDrive - Wypożyczalnia Samochodów Premium</title>
-    <meta name="description" content="Wypożycz samochód swoich marzeń. Premium wypożyczalnia samochodów z szerokim wyborem luksusowych pojazdów.">
+    <meta name="description"
+        content="Wypożycz samochód swoich marzeń. Premium wypożyczalnia samochodów z szerokim wyborem luksusowych pojazdów.">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -46,7 +49,7 @@
                         <span class="gradient-text">Swoich Marzeń</span>
                     </h1>
                     <p class="hero-description">
-                        Odkryj naszą ekskluzywną kolekcję luksusowych samochodów. 
+                        Odkryj naszą ekskluzywną kolekcję luksusowych samochodów.
                         Od sportowych aut po eleganckie SUV-y - znajdź idealny pojazd na każdą okazję.
                     </p>
                     <div class="hero-stats">
@@ -64,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Search Box -->
                 <div class="search-box card-glass animate-slide-in-right">
                     <h3 class="search-title">Znajdź Swój Samochód</h3>
@@ -291,21 +294,21 @@
                     <div class="form-row">
                         <div class="input-group">
                             <label class="input-label">Imię i Nazwisko</label>
-                            <input type="text" class="input" placeholder="Jan Kowalski" required>
+                            <input type="text" class="input" name="name" placeholder="Jan Kowalski" required>
                         </div>
                         <div class="input-group">
                             <label class="input-label">Email</label>
-                            <input type="email" class="input" placeholder="jan@example.com" required>
+                            <input type="email" class="input" name="email" placeholder="jan@example.com" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="input-group">
                             <label class="input-label">Telefon</label>
-                            <input type="tel" class="input" placeholder="+48 123 456 789" required>
+                            <input type="tel" class="input" name="phone" placeholder="+48 123 456 789" required>
                         </div>
                         <div class="input-group">
                             <label class="input-label">Numer Prawa Jazdy</label>
-                            <input type="text" class="input" placeholder="ABC123456" required>
+                            <input type="text" class="input" name="license" placeholder="ABC123456" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -345,6 +348,108 @@
         </div>
     </div>
 
+    <!-- Suggestion Modal -->
+    <div class="modal" id="suggestionModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content suggestion-modal-content">
+            <div class="modal-header suggestion-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i>
+                    Samochód niedostępny
+                </h3>
+                <button class="modal-close" id="closeSuggestionModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="unavailable-message">
+                    <p id="unavailableCarName">Ten samochód jest już zarezerwowany w wybranym terminie.</p>
+                </div>
+                <div class="suggestion-box" id="suggestionBox">
+                    <div class="suggestion-header-text">
+                        <i class="fas fa-lightbulb" style="color: #10b981;"></i>
+                        <span>Proponujemy podobny samochód:</span>
+                    </div>
+                    <div class="suggested-car" id="suggestedCarInfo">
+                        <!-- Suggested car info will be inserted here -->
+                    </div>
+                    <p class="suggestion-reason" id="suggestionReason"></p>
+                    <div class="suggestion-actions">
+                        <button class="btn btn-primary" id="bookSuggestedCar">
+                            <i class="fas fa-check"></i>
+                            Zarezerwuj ten samochód
+                        </button>
+                        <button class="btn btn-secondary" id="chooseDifferentDate">
+                            <i class="fas fa-calendar"></i>
+                            Wybierz inny termin
+                        </button>
+                    </div>
+                </div>
+                <div class="no-suggestion" id="noSuggestionBox" style="display: none;">
+                    <p>Niestety, nie mamy dostępnych podobnych samochodów w tym terminie.</p>
+                    <button class="btn btn-secondary" id="chooseDifferentDate2">
+                        <i class="fas fa-calendar"></i>
+                        Wybierz inny termin
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content success-modal-content">
+            <div class="modal-header success-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                    Rezerwacja potwierdzona!
+                </h3>
+                <button class="modal-close" id="closeSuccessModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="success-message">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h4 id="successCarName">Mercedes S-Class</h4>
+                    <p class="success-details" id="successDetails">
+                        Twoja rezerwacja została pomyślnie utworzona.
+                    </p>
+                    <div class="reservation-info">
+                        <div class="info-row">
+                            <span class="info-label">Numer rezerwacji:</span>
+                            <span class="info-value" id="reservationId">#12345</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Data odbioru:</span>
+                            <span class="info-value" id="successPickupDate">10.01.2026</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Data zwrotu:</span>
+                            <span class="info-value" id="successReturnDate">15.01.2026</span>
+                        </div>
+                        <div class="info-row total">
+                            <span class="info-label">Całkowity koszt:</span>
+                            <span class="info-value" id="successTotalPrice">4495 zł</span>
+                        </div>
+                    </div>
+                    <p class="success-note">
+                        <i class="fas fa-envelope"></i>
+                        Potwierdzenie zostało wysłane na Twój adres email.
+                    </p>
+                    <button class="btn btn-primary btn-lg" id="closeSuccessBtn">
+                        <i class="fas fa-home"></i>
+                        Powrót do strony głównej
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
+
 </html>
